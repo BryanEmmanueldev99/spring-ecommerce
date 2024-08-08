@@ -1,6 +1,20 @@
 package com.curso.ecommerce.spring_ecommerce.model;
 
+import java.util.List;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "tb_usuarios" )
+
 public class Usuario {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nombre;
     private String username;
@@ -10,6 +24,13 @@ public class Usuario {
     private String tipo;
     private String userpass;
 
+    
+    @OneToMany(mappedBy = "usuario")
+    private List<Producto> productos;
+
+    @OneToMany(mappedBy = "usuario")
+    private List<Orden> ordenes;
+
 
     public Usuario() {
         //sin parametros
@@ -17,6 +38,7 @@ public class Usuario {
 
 
     public Usuario(Integer id, String nombre, String username, String email, String direccion, String telefono, String tipo, String userpass) {
+        //super();
         this.id = id;
         this.nombre = nombre;
         this.username = username;
@@ -92,6 +114,16 @@ public class Usuario {
     public void setUserpass(String userpass) {
         this.userpass = userpass;
     }
+
+
+    public List<Producto> getProductos() {
+        return this.productos;
+    }
+
+    public void setProductos(List<Producto> productos) {
+        this.productos = productos;
+    }
+
 
 
 
